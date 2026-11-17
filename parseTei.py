@@ -14,11 +14,11 @@ NAMESPACES = {
         }
 
 # récupère la racine
-tree = ET.parse("data/teiCorpus_V1.xml")
+tree = ET.parse("data/teiCorpus_V2.xml")
 root = tree.getroot()
 #print (root)
 
-with open("data/iramuteqFormat_teiCorpus_V1.txt", "w") as fichier:
+with open("data/iramuteqFormat_teiCorpus_V3.txt", "w") as fichier:
 
     # le préfixe tei est un ns par défaut; il faut le rajouter à chaque path
     for entretien in root.findall('.//tei:TEI', NAMESPACES):
@@ -30,8 +30,9 @@ with open("data/iramuteqFormat_teiCorpus_V1.txt", "w") as fichier:
             attribPerformance = rs.attrib.get("ana").replace("#", "")
             listAttribPerformance.append(attribPerformance)
         # parcourir la liste de métadonnées et les écrire sur une ligne avec un espace entre elles
-        for eachElement in listAttribPerformance:
-            fichier.write("*attrib_"+eachElement+ " ")
+        fichier.write("*cadre_"+listAttribPerformance[0]+ " ")
+        fichier.write("*lieu_" + listAttribPerformance[1] + " ")
+        fichier.write("*qualite_" + listAttribPerformance[2] + " ")
         # le texte de l'entretien qui regroupe tous les textes directs et imbriqués de la balise U pour chaque personne interwieuvée
         cleanTextEntretien = ""
         # Pour chaque replique u
